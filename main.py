@@ -44,6 +44,8 @@ def interpret():
                         asmfiletext.append("call yellowscreen")
                     elif line.startswith("readKernel"):
                         asmfiletext.append("call readkernel")
+                    elif line.startswith("32bit"):
+                        asmfiletext.append("call EnterProtectedMode")
                     elif line.startswith("jump"):
                         asmfiletext.append("jmp {}".format(line[5:].partition(" ")[0]))
                     elif line.startswith("BOOTABLE"):
@@ -74,6 +76,7 @@ def interpret():
         f.write("jmp $\n")
         if includeFunc:
             f.write('%include "func.asm"\n')
+            f.write('%include "gdt.asm"\n')
 
         for line in asmfiledata:
             f.write(line)

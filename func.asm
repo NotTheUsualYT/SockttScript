@@ -66,4 +66,48 @@ mov si, str_diskerr
 call print
 jmp $
 
+EnterProtectedMode:
+call EnableA20
+cli
+lgdt [gdt_descriptor]
+mov cr0, eax
+or eax, 1
+mov cr0, eax
+jmp codeseg:startProtectedMode
+
+EnableA20:
+in al, 0x92
+or al, 2
+out 0x92, al
+ret
+
+[bits 32]
+
+startProtectedMode:
+
+    mov ax, dataseg
+    mov ds, ax
+    mov ss, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+
+    mov ebp, 0x90000
+    mov esp, ebp
+
+    mov [0xb8000], byte "B"
+    mov [0xb8002], byte "r"
+    mov [0xb8004], byte "u"
+    mov [0xb8006], byte "h"
+    mov [0xb8008], byte " "
+    mov [0xb800A], byte "M"
+    mov [0xb800C], byte "o"
+    mov [0xb800E], byte "m"
+    mov [0xb8010], byte "e"
+    mov [0xb8012], byte "n"
+    mov [0xb8014], byte "t"
+
+
+    jmp $
+
 str_diskerr: db "DISK ERROR!", 10, 13, 0
