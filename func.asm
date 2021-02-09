@@ -31,6 +31,17 @@ int 0x10
 popa
 ret
 
+yellowscreen:
+pusha
+mov ah, 0x09
+mov al, 0x20
+mov bh, 0x00
+mov bl, 0xEF
+mov cx, 0x1000
+int 0x10
+popa
+ret
+
 readkernel:
 pusha
 mov ah, 0x02
