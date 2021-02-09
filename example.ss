@@ -1,5 +1,4 @@
 BOOTABLE
 INCLUDEFUNC
-str hello = "Hello, world!"
 bluescreen
-print hello
+print "Hello, world!"
