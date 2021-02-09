@@ -45,7 +45,7 @@ ret
 readkernel:
 pusha
 mov ah, 0x02
-mov al, 1
+mov al, 32
 mov ch, 0
 mov cl, 2
 mov dh, 0

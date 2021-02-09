@@ -47,7 +47,10 @@ def interpret():
                     elif line.startswith("64bit"):
                         asmfiletext.append("call EnterProtectedMode")
                     elif line.startswith("jump"):
-                        asmfiletext.append("jmp {}".format(line[5:].partition(" ")[0]))
+                        if line[5:11] == "kernel":
+                            asmfiletext.append("jmp 0x7E00")
+                        else:
+                            asmfiletext.append("jmp {}".format(line[5:].partition(" ")[0]))
                     elif line.startswith("BOOTABLE"):
                         isBootable = True
                     elif line.startswith("NOFUNC"):
@@ -88,7 +91,7 @@ def interpret():
         if isBootable:
             f.write("times 510-($-$$) db 0\ndw 0xAA55")
         else:
-            f.write("times 512-($-$$) db 0")
+            f.write("times 16384-($-$$) db 0")
 
 
 interpret()
