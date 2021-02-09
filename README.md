@@ -6,4 +6,4 @@ very good programming language
 # Future updates:
 Print text without declaring variable
 add more functions (eg. Graphics mode, Serial I/O, keyboard)
-make it usefull (Far future)
+make it gud (Far future)
