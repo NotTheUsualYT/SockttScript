@@ -1,2 +1,9 @@
 # SockttScript
 The best programming language to make an OS in
+
+very good programming language
+
+# Future updates:
+Print text without declaring variable
+add more functions (eg. Graphics mode, Serial I/O, keyboard)
+make it usefull (Far future)
