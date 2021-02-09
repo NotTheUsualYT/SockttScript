@@ -15,7 +15,9 @@ def interpret():
     else:
         try:
             with open(sys.argv[1], "r") as f:
+                linecount = 0
                 for line in f:
+                    linecount += 1
                     if line.startswith("str"):
                         strname = line[4:].partition(" ")[0]
                         strdata = re.findall('(?:")([^"]*)(?:")', line)
@@ -24,8 +26,13 @@ def interpret():
 
                         asmfiledata.append("{}: db \"{}\", 10, 13, 0".format(strname, strdata[0]))
                     elif line.startswith("print"):
-                        strname = line[6:].partition("\n")[0]
-                        asmfiletext.append("mov si, {}".format(strname))
+                        if '"' not in line:
+                            str = line[6:].partition("\n")[0]
+                            asmfiletext.append("mov si, {}".format(str))
+                        else:
+                            str = line[7:].partition('"')[0]
+                            asmfiledata.append("temp{}: db \"{}\", 10, 13, 0".format(linecount, str))
+                            asmfiletext.append("mov si, temp{}".format(linecount))
                         asmfiletext.append("call print")
                     elif line.startswith("clearscreen"):
                         asmfiletext.append("call clearscreen")
