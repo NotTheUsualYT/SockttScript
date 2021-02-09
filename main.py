@@ -39,6 +39,9 @@ def interpret():
                     elif line.startswith("bluescreen"):
                         asmfiletext.append("call clearscreen")
                         asmfiletext.append("call bluescreen")
+                    elif line.startswith("yellowscreen"):
+                        asmfiletext.append("call clearscreen")
+                        asmfiletext.append("call yellowscreen")
                     elif line.startswith("readKernel"):
                         asmfiletext.append("call readkernel")
                     elif line.startswith("jump"):
