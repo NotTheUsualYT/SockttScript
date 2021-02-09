@@ -107,7 +107,19 @@ startProtectedMode:
     mov [0xb8012], byte "n"
     mov [0xb8014], byte "t"
 
+    call DetectCPUID
+    call DetectLongMode
+    call SetUpIdentityPaging
+    call EditGDT
+    jmp codeseg:Start64Bit
 
+[bits 64]
+
+Start64Bit:
+    mov edi, 0xb8000
+    mov rax, 0x1f201f201f201f20
+    mov rcx, 500
+    rep stosq
     jmp $
 
 str_diskerr: db "DISK ERROR!", 10, 13, 0
