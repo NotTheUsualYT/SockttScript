@@ -8,7 +8,7 @@ def interpret():
     asmfiledata = []
     asmfiletext = []
     isBootable = False
-    includeFunc = False
+    includeFunc = True
 
     if not sys.argv[1]:
         sys.stderr.write("Error: No input file")
@@ -48,8 +48,8 @@ def interpret():
                         asmfiletext.append("jmp {}".format(line[5:].partition(" ")[0]))
                     elif line.startswith("BOOTABLE"):
                         isBootable = True
-                    elif line.startswith("INCLUDEFUNC"):
-                        includeFunc = True
+                    elif line.startswith("NOFUNC"):
+                        includeFunc = False
 
 
                     else:
